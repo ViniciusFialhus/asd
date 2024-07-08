@@ -1,0 +1,65 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 5px;
+}
+
+.containerNameType {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    font-size: 15px;
+    font-family: "Oswald", sans-serif;
+    color: white;
+    background-color: black;
+}
+
+.containerNameInput {
+    height: 40%;
+    border: 1px solid rgb(156, 154, 154);
+}
+
+.containerNameInput .containerInitiative {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+    font-size: 15px;
+    font-family: "Oswald", sans-serif;
+    color: black;
+}
+
+.containerInitiative input {
+    text-align: center;
+    border: none;
+    width: 6%;
+    height: 90%;
+    font-family: "Oswald", sans-serif;
+    margin-left: 5px;
+}
+
+
+.containerInitiative input:focus {
+    border: none;
+    outline: none;
+}
+
+.containerNewAttack {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 30%;
+    font-size: 10px;
+    color: white;
+}
+
+.containerNewAttack .containerNameAttack {
+    height: auto;
+    margin-left: 15px;
+}
+
+.containerDamege{
+    margin-right: 15px;
+}

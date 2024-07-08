@@ -1,94 +1,63 @@
-import Image from "next/image";
+"use client";
+import React from 'react';
 import styles from "./page.module.css";
+import HabilityDiv from "./components/habilitsDiv/page";
+import GenericDiv from "./components/genericDiv/page";
+import AttacksDiv from "./components/attackDiv/page";
+import DefensesDiv from "./components/defensesDiv/page";
+import img from "./public/persons/656f3fad9dc1629228801a9c0140359c (1).jpg";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function Home() {
+  const downloadPDF = () => {
+    const input = document.getElementById("containerBannerSheet");
+    if (input) {
+      html2canvas(input).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF({
+          orientation: "portrait",
+          unit: "px",
+          format: [canvas.width, canvas.height]
+        });
+        pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+        pdf.save("download.pdf");
+      });
+    } else {
+      console.error("Elemento não encontrado");
+    }
+  };
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+      {/* <button onClick={downloadPDF} className={styles.button}>Download PDF</button> */}
+      <div className={styles.containerBannerSheet} id="containerBannerSheet">
+        <div className={styles.containerLeft}>
+          <div className={styles.containerImg}>
+            <img src={img.src} />
+          </div>
+          <div className={styles.containerAttack}>
+            <AttacksDiv />
+          </div>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        <div className={styles.containerRigth}>
+          <div className={styles.containerHabilits}>
+            <HabilityDiv type="FORÇA" />
+            <HabilityDiv type="AGILIDADE" />
+            <HabilityDiv type="LUTA" />
+            <HabilityDiv type="PRONTIDÃO" />
+            <HabilityDiv type="VIGOR" />
+            <HabilityDiv type="DESTREZA" />
+            <HabilityDiv type="INTELECTO" />
+            <HabilityDiv type="PRESENÇA" />
+          </div>
+          <div className={styles.containerDefenses}>
+            <DefensesDiv />
+          </div>
+          <div className={styles.containerText}>
+            <GenericDiv type="Observações" />
+          </div>
+        </div>
       </div>
     </main>
   );
