@@ -1,94 +1,64 @@
 .main {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .containerNameType {
-    display: flex;
-    align-items: center;
-    padding-left: 15px;
-    font-size: 15px;
-    font-family: "Oswald", sans-serif;
-    color: white;
-    background-color: black;
+  display: flex;
+  align-items: center;
+  padding-left: 0.8vh;
+  font-size: 2.3vh;
+  font-family: "Oswald", sans-serif;
+  color: white;
+  background-color: black;
 }
 
 .containerNameInput {
-    height: 100%;
-    border: 1px solid rgb(156, 154, 154);
-    background-color: white;
+  height: 100%;
+  background-color: white;
+  border: none;
 }
 
 .containerList {
-    display: flex;
-    height: 30%;
+  display: flex;
+  height: 30%;
 }
-
 
 .containerOneDefense {
-    display: flex;
-    width: 50%;
-    height: 100%;
-    font-size: 13px;
-    font-family: "Oswald", sans-serif;
-    padding-left: 5px;
- 
+  width: 50%;
+  font-size: 2vh;
+  font-family: "Oswald", sans-serif;
 }
 
-.containerOneDefense .containerName{
-    position: relative;
+.containerOneDefense .containerName .fakeInput {
+  position: absolute;
+  left: 13vh;
 }
 
-.containerOneDefense input{
-    text-align: center;
-    position: absolute;
-    left: 50px;
-    text-align: center;
-    border: none;
-    width: 70%;
-    height: 90%;
-    font-family: "Oswald", sans-serif;
-    margin-left: 5px;
-    padding-bottom: 3px;
-    background-color: transparent;
-}
-
-.containerOneDefense input:focus {
-    border: none;
-    outline: none;
+.containerOneDefense .containerName {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding-left: 0.8vh;
 }
 
 .containerTwoDefense {
-    display: flex;
-    width: 50%;
-    height: 100%;
-    font-size: 13px;
-    font-family: "Oswald", sans-serif;
+  width: 50%;
+  font-size: 2vh;
+  font-family: "Oswald", sans-serif;
 }
 
-
-.containerTwoDefense .containerName{
-    position: relative;
+.containerTwoDefense .containerName {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
-.containerTwoDefense input{
-    text-align: center;
-    position: absolute;
-    left: 100px;
-    text-align: center;
-    border: none;
-    width: 50%;
-    height: 90%;
-    font-family: "Oswald", sans-serif;
-    margin-left: 5px;
-    padding-bottom: 3px;
-    background-color: transparent;
-}
-
-.containerTwoDefense input:focus {
-    border: none;
-    outline: none;
+.containerTwoDefense .containerName .fakeInput {
+  position: absolute;
+  left: 13vh;
 }

@@ -1,28 +1,28 @@
-.main {
-    width: 80px;
-    height: 50%;
-    margin-bottom: 5px;
+.containerHabilits {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.containerHabilty {
+  height: 6vh;
+  width: 7vh;
+  font-family: "Oswald", sans-serif;
+  background-color: white;
+}
+.containerHabilty .containerName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2vh;
+  color: white;
+  font-size: 1.5vh;
+  background-color: black;
 }
 
-.containerNameType {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40%;
-    font-size: 16px;
-    font-family: "Oswald", sans-serif;
-    color: white;
-    background-color: black;
-}
-
-.containerNameInput {
-    height: 60%;
-}
-
-.containerNameInput input {
-    text-align: center;
-    height: 100%;
-    width: 100%;
-    padding-left: 15px;
-    font-size: 30px;
+.containerHabilty .containerFakeInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.5vh;
 }

@@ -1,0 +1,62 @@
+
+.containerBannerSheet {
+    display: flex;
+    width: 800px;
+    height: 600px;
+    border-radius: 15px;
+    background-color: white;
+  }
+  
+  .containerLeft {
+    width: 50%;
+    height: 100%;
+  }
+  
+  .containerImg {
+    width: 90%;
+    height: 70%;
+    margin-left: 50px;
+    margin-top: 20px;
+    background-color: red;
+  }
+  
+  .containerImg img {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .containerAttack {
+    width: 90%;
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+  
+  .containerRigth {
+    width: 50%;
+    height: 100%;
+  }
+  
+  .containerHabilits {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 150px;
+    width: 90%;
+    margin-left: 15px;
+    margin-top: 30px;
+  }
+  
+  .containerDefenses {
+    height: 100px;
+    width: 90%;
+    margin-left: 15px;
+    margin-top: 15px;
+    background-color: black;
+  }
+  
+  .containerText {
+    height: 310px;
+    width: 90%;
+    margin-left: 15px;
+    margin-top: 15px;
+  }

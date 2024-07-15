@@ -1,20 +1,65 @@
 "use client";
 import styles from "./page.module.css";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
+interface AttacksDivProps {
+  readonly height: string | number;
+  readonly width: string | number;
+  readonly setBeingDragged: any;
+  readonly setDragItem: any;
+}
 
-export default function AttacksDiv() {
+export default function AttacksDivSelect({
+  height,
+  width,
+  setBeingDragged,
+  setDragItem,
+}: AttacksDivProps) {
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value.length > 2) {
       e.target.value = value.slice(0, 2);
     }
   };
+
+  const [mouseDown, setMouseDown] = useState(false);
+  useEffect(() => {
+    const handleGlobalMouseDown = () => setMouseDown(true);
+    const handleGlobalMouseUp = () => setMouseDown(false);
+
+    window.addEventListener("mousedown", handleGlobalMouseDown);
+    window.addEventListener("mouseup", handleGlobalMouseUp);
+
+    return () => {
+      window.removeEventListener("mousedown", handleGlobalMouseDown);
+      window.removeEventListener("mouseup", handleGlobalMouseUp);
+    };
+  }, []);
+  const handleDragStart = (e: React.DragEvent) => {
+    e.dataTransfer.setData("type", "attack");
+    setBeingDragged(true);
+    setDragItem(e.target as HTMLElement);
+  };
+  const handleDragEnd = (e: React.DragEvent) => {
+    setBeingDragged(false);
+    setMouseDown(false);
+  };
+
   return (
-    <main className={styles.main}>
+    <main
+      draggable
+      className={styles.main}
+      style={{
+        minHeight: height,
+        width: width,
+        cursor: mouseDown ? "grabbing" : "grab",
+      }}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <div className={styles.containerNameType}>ATAQUE</div>
       <div className={styles.containerNameInput}>
         <div className={styles.containerInitiative}>
-          INICIATIVA +
+          <div>INICIATIVA +</div>
           <input
             defaultValue={"0"}
             type="number"
@@ -22,24 +67,14 @@ export default function AttacksDiv() {
             onInput={handleInput}
           />
         </div>
-        <div
-          className={styles.containerNewAttack}
-          style={{ backgroundColor: "black", color: "white", height: "30%" }}
+      </div>
+      <div className={styles.containerButtonAddNew}>
+        <button
+          className={styles.containerSpan}
+          type="button"
         >
-          <div className={styles.containerNameAttack}>Ataque Frenético</div>
-          <div className={styles.containerDamege}>
-            Área, Dano 6, Coné ( 15 Pés )
-          </div>
-        </div>
-        <div
-          className={styles.containerNewAttack}
-          style={{ backgroundColor: "white", color: "black",height: "40%" }}
-        >
-          <div className={styles.containerNameAttack}>Grito Ensurdecedor</div>
-          <div className={styles.containerDamege}>
-            Aflição 6, Coné ( 15 Pés )
-          </div>
-        </div>
+          <span className="material-symbols-outlined">add</span>
+        </button>
       </div>
     </main>
   );

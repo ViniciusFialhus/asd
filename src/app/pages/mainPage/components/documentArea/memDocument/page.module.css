@@ -1,0 +1,22 @@
+.containerMain {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  z-index: 0;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.clonedItem {
+  position: absolute;
+  cursor: grab;
+}
+
+.deleteIcon {
+  position: relative;
+  bottom: 130px;
+  right: 5px;
+  cursor: pointer;
+  color: white; 
+}
+
