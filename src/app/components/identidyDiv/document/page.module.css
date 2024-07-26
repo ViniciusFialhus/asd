@@ -1,0 +1,134 @@
+.containerMain {
+  display: flex;
+}
+
+.containerBase {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 90%;
+  width: 100%;
+  background-color: white;
+}
+
+.containerBase .containerTop {
+  width: 100%;
+  height: 60%;
+}
+
+.containerTop .containerInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.containerTop .containerInput .label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Oswald", sans-serif;
+  height: 40%;
+  color: black;
+  user-select: none;
+}
+
+.containerTop .containerInput input {
+  text-align: center;
+  padding-top: 10px;
+  width: 80%;
+  height: 60%;
+  font-family: "Oswald", sans-serif;
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  border-bottom: 1px solid black;
+}
+
+.containerTop .containerInput input:focus{
+  outline: none;
+}
+
+.containerBase .containerBottom {
+  display: flex;
+  width: 100%;
+  height: 40%;
+}
+
+.containerBase .containerBottom .containerInput {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  height: 100%;
+}
+
+.containerBase .containerBottom .containerInput .label {
+  display: flex;
+  align-items: flex-end;
+  min-width: 30%;
+  height: 100%;
+}
+
+.containerBase .containerBottom .containerInput input {
+  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  padding-top: 20px;
+  max-width: 50%;
+  height: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.containerBase .containerBottom .containerInput input:focus{
+  outline: none;
+}
+
+.containerIcon {
+  height: 100%;
+  width: 10%;
+}
+
+.containerIcon .containerSpan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  margin-left: 5px;
+  border-radius: 50%;
+  color: black;
+  cursor: pointer;
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.containerIcon .containerSpan:hover {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+.resize {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  cursor: se-resize;
+  user-select: none;
+}
+
+.resize span {
+  font-size: 15px;
+}

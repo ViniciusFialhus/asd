@@ -1,22 +1,21 @@
 "use client";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
-interface GenericProps {
-  readonly type: string;
+interface DefensesDivProps {
   readonly height: string | number;
   readonly width: string | number;
   readonly setBeingDragged: any;
   readonly setDragItem: any;
 }
 
-export default function GenericDivSelect({
-  type,
+export default function ExpertiseDivSelect({
   height,
   width,
   setBeingDragged,
   setDragItem,
-}: GenericProps) {
+}: DefensesDivProps) {
   const [mouseDown, setMouseDown] = useState(false);
+  const [items, setItems] = useState<string[]>([]);
   useEffect(() => {
     const handleGlobalMouseDown = () => setMouseDown(true);
     const handleGlobalMouseUp = () => setMouseDown(false);
@@ -30,7 +29,7 @@ export default function GenericDivSelect({
     };
   }, []);
   const handleDragStart = (e: React.DragEvent) => {
-    e.dataTransfer.setData('type', "generic");
+    e.dataTransfer.setData("type", "expertise");
     setBeingDragged(true);
     setDragItem(e.target as HTMLElement);
   };
@@ -38,21 +37,31 @@ export default function GenericDivSelect({
     setBeingDragged(false);
     setMouseDown(false);
   };
+
+  const addItem = (item: string) => {
+    setItems((prevItems) => [...prevItems, item]);
+  };
+
   return (
     <div
       draggable
-      className={styles.isMain}
+      className={styles.main}
       style={{
         height: height,
         width: width,
-        cursor: mouseDown ? "grabbing" : "grab"
+        cursor: mouseDown ? "grabbing" : "grab",
       }}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
       <section className={styles.containerBase}>
-        <div className={styles.containerText}>{type}</div>
-        <div className={styles.containerInput}>
+        <div className={styles.containerText}>PERÍCIAS</div>
+        <div className={styles.containerContent}>
+          <select onChange={(e) => addItem(e.target.value)} defaultValue="">
+            <option value="" disabled>
+              Selecione uma Péricia
+            </option>
+          </select>
         </div>
       </section>
     </div>

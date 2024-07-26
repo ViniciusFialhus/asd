@@ -1,6 +1,5 @@
 import styles from "./page.module.css";
-import Hability from "../hability/page";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, ChangeEvent } from "react";
 
 interface HabilityDivProps {
   readonly height: string | number;
@@ -13,7 +12,7 @@ interface HabilityDivProps {
   readonly characterUpdate: any;
 }
 
-export default function HabilityDiv({
+export default function IdentityDiv({
   height,
   width,
   style,
@@ -27,15 +26,18 @@ export default function HabilityDiv({
   const [utils, setUtils] = useState(false);
   const [mouseDown, setMouseDown] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
-  const [dimensions, setDimensions] = useState({ width, height });
+  const [dimensions, setDimensions] = useState({ width, height })
+
   const handleDobleClick = () => {
     setUtils(true);
   };
+
   const handleClickOutside = (event: MouseEvent) => {
     if (ref.current && !ref.current.contains(event.target as Node)) {
       setUtils(false);
     }
   };
+
   const handleResizeMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsResizing(true);
@@ -55,26 +57,6 @@ export default function HabilityDiv({
     if (isResizing) {
       setIsResizing(false);
     }
-  };
-
-  const handleHabilityChange = (type: string, value: number) => {
-    characterUpdate((prevCharacter:any) => {
-      const updatedAbilities = { ...prevCharacter.abilities };
-
-      if (value >= 1) {
-        updatedAbilities[type] = value;
-      } else {
-        const { [type]: _, ...rest } = updatedAbilities;
-        return {
-          ...prevCharacter,
-          abilities: rest,
-        };
-      }
-      return {
-        ...prevCharacter,
-        abilities: updatedAbilities,
-      };
-    });
   };
 
   useEffect(() => {
@@ -105,9 +87,40 @@ export default function HabilityDiv({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newName = e.target.value; 
+    characterUpdate({ ...character, name: newName });
+  };
+
+  const handlePowerLevelChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newPowerLevel = e.target.value.slice(0, 2);
+    const numericValue = Number(newPowerLevel);
+    if (isNaN(numericValue) || numericValue < 0) return;
+    const newPowerPoints = Math.floor(numericValue * 15);
+    characterUpdate({
+      ...character,
+      powerLevel: numericValue,
+      powerPoints: newPowerPoints,
+    });
+    
+  };
+  
+  const handlePowerPointsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newPowerPoints = e.target.value.slice(0, 2);
+    const numericValue = Number(newPowerPoints);
+    if (isNaN(numericValue) || numericValue < 0) return;
+    const newPowerLevel = numericValue / 15;
+    characterUpdate({
+      ...character,
+      powerLevel: newPowerLevel,
+      powerPoints: numericValue,
+    });
+  };
+
   return (
     <div
-      className={styles.containerHabilits}
+      className={styles.containerMain}
       ref={ref}
       style={{
         ...style,
@@ -128,70 +141,34 @@ export default function HabilityDiv({
             <span className="material-symbols-outlined">resize</span>
           </div>
         )}
-        <Hability
-          type="FORÇA"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.FORÇA || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="AGILIDADE"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.AGILIDADE || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="LUTA"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.LUTA || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="PRONTIDÃO"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.PRONTIDÃO || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="VIGOR"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.VIGOR || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="DESTREZA"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.DESTREZA || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="INTELECTO"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.INTELECTO || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="PRESENÇA"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.PRESENÇA || 0}
-          onChange={handleHabilityChange}
-        />
+        <div className={styles.containerTop}>
+          <div className={styles.containerInput}>
+            <div className={styles.label}>Nome do Personagem</div>
+            <input type="text" value={character.name} onChange={handleNameChange} />
+          </div>
+        </div>
+        <div className={styles.containerBottom}>
+          <div className={styles.containerInput}>
+            <div className={styles.label}>Nível de Poder:</div>
+            <input
+              type="number"
+              name="powerLevel"
+              maxLength={2}
+              value={character.powerLevel}
+              onChange={handlePowerLevelChange}
+            />
+          </div>
+          <div className={styles.containerInput}>
+            <div className={styles.label}>Pontos de Poder:</div>
+            <input
+              type="number"
+              name="powerPoints"
+              maxLength={2}
+              value={character.powerPoints}
+              onChange={handlePowerPointsChange}
+            />
+          </div>
+        </div>
       </section>
       <section className={styles.containerIcon}>
         {utils && (

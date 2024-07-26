@@ -1,5 +1,4 @@
 import styles from "./page.module.css";
-import Hability from "../hability/page";
 import { useEffect, useState, useRef } from "react";
 
 interface HabilityDivProps {
@@ -9,22 +8,20 @@ interface HabilityDivProps {
   readonly onMouseDown?: any;
   readonly onMouseMove?: any;
   readonly removerItem?: any;
-  readonly character: any;
-  readonly characterUpdate: any;
 }
 
-export default function HabilityDiv({
+export default function ImageDiv({
   height,
   width,
   style,
   onMouseDown,
   onMouseMove,
   removerItem,
-  character,
-  characterUpdate,
 }: HabilityDivProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [utils, setUtils] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [mouseDown, setMouseDown] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const [dimensions, setDimensions] = useState({ width, height });
@@ -36,6 +33,7 @@ export default function HabilityDiv({
       setUtils(false);
     }
   };
+
   const handleResizeMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsResizing(true);
@@ -57,24 +55,15 @@ export default function HabilityDiv({
     }
   };
 
-  const handleHabilityChange = (type: string, value: number) => {
-    characterUpdate((prevCharacter:any) => {
-      const updatedAbilities = { ...prevCharacter.abilities };
-
-      if (value >= 1) {
-        updatedAbilities[type] = value;
-      } else {
-        const { [type]: _, ...rest } = updatedAbilities;
-        return {
-          ...prevCharacter,
-          abilities: rest,
-        };
-      }
-      return {
-        ...prevCharacter,
-        abilities: updatedAbilities,
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setBackgroundImage(e.target?.result as string);
       };
-    });
+      reader.readAsDataURL(file);
+    }
   };
 
   useEffect(() => {
@@ -98,7 +87,6 @@ export default function HabilityDiv({
       window.removeEventListener("mouseup", handleGlobalMouseUp);
     };
   }, []);
-
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -107,7 +95,7 @@ export default function HabilityDiv({
   }, []);
   return (
     <div
-      className={styles.containerHabilits}
+      className={styles.containerMain}
       ref={ref}
       style={{
         ...style,
@@ -121,77 +109,28 @@ export default function HabilityDiv({
     >
       <section
         className={styles.containerBase}
-        style={{ border: utils ? "1px solid #232323" : "" }}
+        style={{
+          border: utils ? "1px solid #232323" : "",
+          backgroundImage: backgroundImage
+            ? `url(${backgroundImage})`
+            : undefined,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
+        {!backgroundImage && (
+          <input
+            type="file"
+            ref={fileInputRef}
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+        )}
         {utils && (
           <div className={styles.resize} onMouseDown={handleResizeMouseDown}>
             <span className="material-symbols-outlined">resize</span>
           </div>
         )}
-        <Hability
-          type="FORÇA"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.FORÇA || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="AGILIDADE"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.AGILIDADE || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="LUTA"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.LUTA || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="PRONTIDÃO"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.PRONTIDÃO || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="VIGOR"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.VIGOR || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="DESTREZA"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.DESTREZA || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="INTELECTO"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.INTELECTO || 0}
-          onChange={handleHabilityChange}
-        />
-        <Hability
-          type="PRESENÇA"
-          height={"60px"}
-          width={"70px"}
-          utils={utils}
-          abiltyValue={character?.abilities?.PRESENÇA || 0}
-          onChange={handleHabilityChange}
-        />
       </section>
       <section className={styles.containerIcon}>
         {utils && (

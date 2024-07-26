@@ -1,21 +1,19 @@
 "use client";
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
-interface GenericProps {
-  readonly type: string;
+import { useState, useEffect } from "react";
+interface HabilityDivProps {
   readonly height: string | number;
   readonly width: string | number;
   readonly setBeingDragged: any;
   readonly setDragItem: any;
 }
 
-export default function GenericDivSelect({
-  type,
+export default function IdentityDivSelect({
   height,
   width,
   setBeingDragged,
   setDragItem,
-}: GenericProps) {
+}: HabilityDivProps) {
   const [mouseDown, setMouseDown] = useState(false);
   useEffect(() => {
     const handleGlobalMouseDown = () => setMouseDown(true);
@@ -30,7 +28,7 @@ export default function GenericDivSelect({
     };
   }, []);
   const handleDragStart = (e: React.DragEvent) => {
-    e.dataTransfer.setData('type', "generic");
+    e.dataTransfer.setData("type", "identity");
     setBeingDragged(true);
     setDragItem(e.target as HTMLElement);
   };
@@ -41,20 +39,16 @@ export default function GenericDivSelect({
   return (
     <div
       draggable
-      className={styles.isMain}
+      className={styles.containerMain}
       style={{
         height: height,
         width: width,
-        cursor: mouseDown ? "grabbing" : "grab"
+        cursor: mouseDown ? "grabbing" : "grab",
       }}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <section className={styles.containerBase}>
-        <div className={styles.containerText}>{type}</div>
-        <div className={styles.containerInput}>
-        </div>
-      </section>
+      <span className="material-symbols-outlined">assignment</span>
     </div>
   );
 }

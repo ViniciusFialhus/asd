@@ -15,6 +15,7 @@
   font-family: "Oswald", sans-serif;
   color: white;
   background-color: black;
+  user-select: none;
 }
 
 .containerNameInput {
@@ -22,6 +23,7 @@
 }
 
 .containerNameInput .containerInitiative {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,6 +31,7 @@
   font-size: 15px;
   font-family: "Oswald", sans-serif;
   color: black;
+  background-color: white;
 }
 
 .containerInitiative input {
@@ -97,22 +100,20 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 7%;
+  width: 25px;
   border-radius: 50%;
   background-color: black;
   transition: transform 0.3s ease;
   cursor: pointer;
-  border: none;
 }
 
-.containerSpan:hover {
+.containerButtonAddNew .containerSpan:hover {
   transform: scale(1.2);
 }
 
-.containerSpan span {
+.containerButtonAddNew .containerSpan span {
   font-size: 20px;
   color: white;
-  cursor: pointer;
 }
 
 .containerIcon {
@@ -136,16 +137,31 @@
 
 @keyframes fadeIn {
   from {
-    opacity: 0; 
+    opacity: 0;
   }
   to {
-    opacity: 1; 
+    opacity: 1;
   }
 }
-
-
 
 .containerIcon .containerSpanUtils:hover {
   background-color: rgb(0, 0, 0);
   color: white;
+}
+
+.resize {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  cursor: se-resize;
+  user-select: none;
+}
+
+.resize span {
+  font-size: 15px;
 }

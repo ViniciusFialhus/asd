@@ -12,6 +12,7 @@
     font-family: "Oswald", sans-serif;
     color: white;
     background-color: black;
+    user-select: none;
 }
 
 .containerNameInput {

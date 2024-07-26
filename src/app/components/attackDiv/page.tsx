@@ -60,21 +60,8 @@ export default function AttacksDivSelect({
       <div className={styles.containerNameInput}>
         <div className={styles.containerInitiative}>
           <div>INICIATIVA +</div>
-          <input
-            defaultValue={"0"}
-            type="number"
-            maxLength={2}
-            onInput={handleInput}
-          />
+          <div style={{marginLeft: "1vh"}}>0</div>
         </div>
-      </div>
-      <div className={styles.containerButtonAddNew}>
-        <button
-          className={styles.containerSpan}
-          type="button"
-        >
-          <span className="material-symbols-outlined">add</span>
-        </button>
       </div>
     </main>
   );
